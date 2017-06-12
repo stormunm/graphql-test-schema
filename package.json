@@ -1,18 +1,11 @@
 {
-  "name": "swapi-graphql",
-  "description": "A GraphQL wrapper for swapi.com",
-  "contributors": [
-    "Nicholas Schrock <schrockn@fb.com>",
-    "Daniel Schafer <dschafer@fb.com>"
-  ],
+  "name": "graphql-test-schema",
+  "description": "A GraphQL wrapper for test schemas",
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/graphql/swapi-graphql",
-  "bugs": {
-    "url": "https://github.com/graphql/swapi-graphql/issues"
-  },
+  "homepage": "https://github.com/stormasm/graphql-test-schema",
   "repository": {
     "type": "git",
-    "url": "http://github.com/graphql/swapi-graphql.git"
+    "url": "http://github.com/stormasm/graphql-test-schema.git"
   },
   "options": {
     "mocha": "--compilers js:babel-register --require scripts/mocha-bootload src/**/__tests__/*.js"
@@ -28,9 +21,6 @@
       "babelify"
     ]
   },
-  "browserify-shim": {
-    "react": "global:React"
-  },
   "scripts": {
     "test": "npm run lint && npm run pretty-check && npm run check && npm run testonly",
     "start": "babel-node src/server/main.js",
@@ -42,7 +32,6 @@
     "cover": "babel-node node_modules/.bin/isparta cover --root src --report html node_modules/.bin/_mocha -- $npm_package_options_mocha",
     "coveralls": "babel-node node_modules/.bin/isparta cover --root src --report lcovonly node_modules/.bin/_mocha -- $npm_package_options_mocha && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "npm run download && npm run build-public",
-    "download": "sh scripts/download",
     "build-public": "scripts/build-public",
     "deploy": "scripts/build-public && scripts/deploy-public",
     "pretty": "node scripts/pretty.js",
@@ -51,11 +40,9 @@
   },
   "dependencies": {
     "babel-runtime": "6.23.0",
-    "dataloader": "1.3.0",
     "express": "4.14.1",
     "express-graphql": "^0.6.6",
     "graphql": "0.10.0",
-    "graphql-relay": "0.5.1",
     "react": "15.5.4"
   },
   "devDependencies": {
@@ -70,7 +57,6 @@
     "babel-register": "6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.3.0",
-    "browserify-shim": "^3.8.10",
     "chai": "^4.0.2",
     "chai-subset": "^1.0.1",
     "coveralls": "^2.11.2",
