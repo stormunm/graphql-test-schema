@@ -8,7 +8,9 @@
 
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import mySchema from '../schema/starWarsSchema';
+import {
+    mySchema
+} from '../schema/starWarsSchema';
 
 const app = express();
 
