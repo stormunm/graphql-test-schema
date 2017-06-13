@@ -19,3 +19,5 @@ https://github.com/stormasm/graphql-blog-schema
 And the Star Wars Schema from here:
 
 https://github.com/graphql/graphql-js/tree/master/src/__tests__
+
+https://github.com/graphql/graphql-js/tree/master/src/__tests__
