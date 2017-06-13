@@ -3,7 +3,7 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import {
     mySchema
-} from '../schema/starWarsSchema';
+} from '../schema/blogSchema';
 
 const app = express();
 
