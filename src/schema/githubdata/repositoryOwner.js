@@ -1,4 +1,3 @@
-
 /**
 * given a login string return the repositoryOwner
 *
@@ -19,20 +18,20 @@
 */
 
 const RepositoryOwnerMap = {
-  'stormasm': {
-      id: "MDQ6VXNlcjE4MDk5OTE=",
-      login: "stormasm",
-      resourcePath: "/stormasm"
+  stormasm: {
+    id: "MDQ6VXNlcjE4MDk5OTE=",
+    login: "stormasm",
+    resourcePath: "/stormasm"
   },
-  'dgraph-io': {
-      id: "MDEyOk9yZ2FuaXphdGlvbjEzOTU4NzA2",
-      login: "dgraph-io",
-      resourcePath: "/dgraph-io"
+  "dgraph-io": {
+    id: "MDEyOk9yZ2FuaXphdGlvbjEzOTU4NzA2",
+    login: "dgraph-io",
+    resourcePath: "/dgraph-io"
   },
-  'graphql': {
-      id: "MDEyOk9yZ2FuaXphdGlvbjEyOTcyMDA2",
-      login: "graphql",
-      resourcePath: "/graphql"
+  graphql: {
+    id: "MDEyOk9yZ2FuaXphdGlvbjEyOTcyMDA2",
+    login: "graphql",
+    resourcePath: "/graphql"
   }
 };
 
