@@ -5,6 +5,7 @@ const TopicMap = {
     "name": "dgraph",
     "relatedTopics": []
   },
+  
   "noms": {
    "id": "MDU6VG9waWNub21z",
    "name": "noms",
@@ -28,10 +29,6 @@ const TopicMap = {
     ]
   },
 
-
-
-
-
   "libp2p": {
     "id": "MDU6VG9waWNsaWJwMnA=",
     "name": "libp2p",
@@ -46,6 +43,7 @@ const TopicMap = {
       }
     ]
   },
+
   "plum": {
       "id": "MDU6VG9waWNwbHVt",
       "name": "plum",
