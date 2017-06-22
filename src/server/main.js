@@ -2,9 +2,9 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import {
-    mySchema
-//} from '../schema/githubSchema';
-} from '../schema/starWarsSchema';
+    GithubSchema
+} from '../schema/githubSchema';
+//} from '../schema/starWarsSchema';
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.all('/graphql', (req, res) => res.redirect('/'));
 app.use(
   '/',
   graphqlHTTP(() => ({
-    schema: mySchema,
+    schema: GithubSchema,
     graphiql: true,
   })),
 );

@@ -1,11 +1,12 @@
+/* @flow */
 
-const TopicMap = {
+export const TopicMap = {
   "dgraph": {
     "id": "MDU6VG9waWNkZ3JhcGg=",
     "name": "dgraph",
     "relatedTopics": []
   },
-  
+
   "noms": {
    "id": "MDU6VG9waWNub21z",
    "name": "noms",
@@ -60,4 +61,16 @@ const TopicMap = {
   }
 };
 
-export default TopicMap;
+export type Topic = {
+  type: 'Topic',
+  id: string,
+  name: string,
+  relatedTopics: Array<string>,
+};
+
+/**
+ * Allows us to query for the topic with the given name.
+ */
+export function getTopic(name: string): Topic {
+  return TopicMap[name];
+}
