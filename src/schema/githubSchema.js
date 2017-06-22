@@ -33,7 +33,7 @@ const topicType = new GraphQLObjectType({
   description: 'A Topic in the Github world.',
   fields: () => ({
     name: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The name of the topic.',
     },
     id: {
