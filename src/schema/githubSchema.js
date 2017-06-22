@@ -12,6 +12,22 @@ import {
 
 import { getTopic } from './githubdata/topic.js';
 
+const nodeInterface = new GraphQLInterfaceType({
+  name: 'Node',
+  description: 'A node in the Github hierarchy',
+  fields: () => ({
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The id of the node.',
+    },
+  }),
+  resolveType(character) {
+    if (character.type === 'Topic') {
+      return topicType;
+    }
+  }
+});
+
 const topicType = new GraphQLObjectType({
   name: 'Topic',
   description: 'A Topic in the Github world.',
@@ -20,7 +36,12 @@ const topicType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'The name of the topic.',
     },
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The id of the topic.',
+    },
   }),
+  interfaces: [ nodeInterface ]
 });
 
 const queryType = new GraphQLObjectType({
