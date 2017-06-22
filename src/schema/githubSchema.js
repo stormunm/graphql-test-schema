@@ -40,6 +40,11 @@ const topicType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: 'The id of the topic.',
     },
+    relatedTopics: {
+      type: new GraphQLList(topicType),
+      description:
+        'A list of related topics.',
+    },
   }),
   interfaces: [ nodeInterface ]
 });
