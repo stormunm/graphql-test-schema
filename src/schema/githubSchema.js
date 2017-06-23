@@ -1,6 +1,7 @@
 /* @flow */
 
 import {
+  Kind,
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLObjectType,
@@ -103,7 +104,7 @@ const queryType = new GraphQLObjectType({
       args: {
         url: {
           description: 'a URI String',
-          type: new GraphQLNonNull(GraphQLString)
+          type: new GraphQLNonNull(uriType)
         },
       },
       resolve: (root, { url }) => getUniformResourceLocatable(url),
