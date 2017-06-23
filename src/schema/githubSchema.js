@@ -11,6 +11,7 @@ import {
 } from 'graphql';
 
 import { getTopic } from './githubdata/topic.js';
+import { getUniformResourceLocatable } from "./githubdata/uniformResourceLocatable";
 
 const nodeInterface = new GraphQLInterfaceType({
   name: 'Node',
@@ -26,6 +27,28 @@ const nodeInterface = new GraphQLInterfaceType({
       return topicType;
     }
   }
+});
+
+/*
+const uriType = new GraphQLObjectType({
+  name: 'URI',
+  description: 'An RFC 3986, RFC 3987, and RFC 6570 (level 4) compliant URI string.',
+});
+*/
+
+const uniformResourceLocatableType = new GraphQLObjectType({
+  name: 'UniformResourceLocatable',
+  description: 'Represents a type that can be retrieved by a URL.',
+  fields: () => ({
+    resourcePath: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The HTML path to this resource.',
+    },
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The HTML path to this resource.',
+    },
+  }),
 });
 
 const topicType = new GraphQLObjectType({
@@ -62,6 +85,21 @@ const queryType = new GraphQLObjectType({
       },
       resolve: (root, { name }) => getTopic(name),
     },
+
+    resource: {
+      type: uniformResourceLocatableType,
+      args: {
+        url: {
+          description: 'a URI String',
+          type: new GraphQLNonNull(GraphQLString)
+        },
+//      resourcePath: {
+//        description: 'The HTML path to this resource.',
+//        type: new GraphQLNonNull(GraphQLString)
+//      }
+      },
+      resolve: (root, { url }) => getUniformResourceLocatable(url),
+    },
   })
 });
 
@@ -72,5 +110,5 @@ const queryType = new GraphQLObjectType({
 
 export const GithubSchema = new GraphQLSchema({
   query: queryType,
-  types: [ topicType ]
+  types: [ topicType, uniformResourceLocatableType ]
 });
