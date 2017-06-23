@@ -8,10 +8,22 @@ import {
   GraphQLNonNull,
   GraphQLSchema,
   GraphQLString,
+  GraphQLScalarType,
 } from 'graphql';
 
 import { getTopic } from './githubdata/topic.js';
 import { getUniformResourceLocatable } from "./githubdata/uniformResourceLocatable";
+
+export const uriType = new GraphQLScalarType({
+  name: 'URI',
+  description:
+    'An RFC 3986, RFC 3987, and RFC 6570 (level 4) compliant URI string.',
+  serialize: String,
+  parseValue: String,
+  parseLiteral(ast) {
+    return ast.kind === Kind.STRING ? ast.value : null;
+  }
+});
 
 const nodeInterface = new GraphQLInterfaceType({
   name: 'Node',
@@ -93,10 +105,6 @@ const queryType = new GraphQLObjectType({
           description: 'a URI String',
           type: new GraphQLNonNull(GraphQLString)
         },
-//      resourcePath: {
-//        description: 'The HTML path to this resource.',
-//        type: new GraphQLNonNull(GraphQLString)
-//      }
       },
       resolve: (root, { url }) => getUniformResourceLocatable(url),
     },
