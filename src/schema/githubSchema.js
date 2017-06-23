@@ -54,11 +54,11 @@ const uniformResourceLocatableType = new GraphQLObjectType({
   description: 'Represents a type that can be retrieved by a URL.',
   fields: () => ({
     resourcePath: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(uriType),
       description: 'The HTML path to this resource.',
     },
     url: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(uriType),
       description: 'The HTML path to this resource.',
     },
   }),
