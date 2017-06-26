@@ -5,6 +5,7 @@ import {
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLObjectType,
+  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLSchema,
@@ -15,6 +16,7 @@ import {
 import { getTopic } from "./githubdata/topic.js";
 import { getUniformResourceLocatable } from "./githubdata/uniformResourceLocatable";
 import { getRepositoryOwner } from "./githubdata/repositoryOwner";
+import { getRepository } from "./githubdata/repository";
 
 // Github Scalar Types
 
@@ -71,6 +73,30 @@ const repositoryOwnerInterface = new GraphQLInterfaceType({
   resolveType(repositoryOwner) {
     if (repositoryOwner.type === "RepositoryOwner") {
       return repositoryOwnerType;
+    }
+  }
+});
+
+const repositoryInfoInterface = new GraphQLInterfaceType({
+  name: "RepositoryInfo",
+  description: "A subset of repository info.",
+  fields: () => ({
+    description: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The description of the repository."
+    },
+    license: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The license associated with the repository"
+    },
+    homepageUrl: {
+      type: new GraphQLNonNull(uriType),
+      description: "The repository's URL."
+    }
+  }),
+  resolveType(repositoryInfo) {
+    if (repositoryInfo.type === "RepositoryInfo") {
+      return repositoryInfoType;
     }
   }
 });
@@ -142,6 +168,38 @@ const repositoryOwnerType = new GraphQLObjectType({
   interfaces: [nodeInterface, repositoryOwnerInterface]
 });
 
+const repositoryType = new GraphQLObjectType({
+  name: "Repository",
+  description: "A repository contains the content for a project.",
+  fields: () => ({
+    login: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The username used to login."
+    },
+    diskUsage: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "The number of kilobytes this repository occupies on disk."
+    },
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The id of the repository owner."
+    },
+    description: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The description of the repository."
+    },
+    license: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "The license associated with the repository"
+    },
+    homepageUrl: {
+      type: new GraphQLNonNull(uriType),
+      description: "The repository's URL."
+    }
+  }),
+  interfaces: [nodeInterface, repositoryInfoInterface]
+});
+
 // End Type Implementations
 
 const queryType = new GraphQLObjectType({
@@ -178,6 +236,21 @@ const queryType = new GraphQLObjectType({
         }
       },
       resolve: (root, { login }) => getRepositoryOwner(login)
+    },
+
+    repository: {
+      type: repositoryType,
+      args: {
+        owner: {
+          description: "The login field of a user or organizationn",
+          type: new GraphQLNonNull(GraphQLString)
+        },
+        name: {
+          description: "The name of the repository.",
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve: (root, { owner, name }) => getRepository(owner,name)
     }
   })
 });
@@ -189,5 +262,5 @@ const queryType = new GraphQLObjectType({
 
 export const GithubSchema = new GraphQLSchema({
   query: queryType,
-  types: [topicType, uniformResourceLocatableType, repositoryOwnerType]
+  types: [topicType, uniformResourceLocatableType, repositoryOwnerType, repositoryType]
 });
