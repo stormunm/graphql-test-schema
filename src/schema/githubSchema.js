@@ -82,7 +82,7 @@ const repositoryInfoInterface = new GraphQLInterfaceType({
   description: "A subset of repository info.",
   fields: () => ({
     description: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
       description: "The description of the repository."
     },
     license: {
@@ -185,7 +185,7 @@ const repositoryType = new GraphQLObjectType({
       description: "The id of the repository owner."
     },
     description: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
       description: "The description of the repository."
     },
     license: {
@@ -250,7 +250,7 @@ const queryType = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve: (root, { owner, name }) => getRepository(owner,name)
+      resolve: (root, { owner, name }) => getRepository(owner, name)
     }
   })
 });
@@ -262,5 +262,10 @@ const queryType = new GraphQLObjectType({
 
 export const GithubSchema = new GraphQLSchema({
   query: queryType,
-  types: [topicType, uniformResourceLocatableType, repositoryOwnerType, repositoryType]
+  types: [
+    topicType,
+    uniformResourceLocatableType,
+    repositoryOwnerType,
+    repositoryType
+  ]
 });
