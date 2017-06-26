@@ -111,8 +111,24 @@ const repositoryOwnerType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: 'The username used to login.',
     },
+    avatarUrl: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'A URL pointing to the owners public avatar.',
+    },
+    resourcePath: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The path for the owner.',
+    },
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The HTTP URL for the owner.',
+    },
+    id: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The id of the repository owner.',
+    },
   }),
-  interfaces: [ repositoryOwnerInterface ]
+  interfaces: [ nodeInterface ]
 });
 
 // End Type Implementations
