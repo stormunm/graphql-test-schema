@@ -55,6 +55,18 @@ const repositoryOwnerInterface = new GraphQLInterfaceType({
       type: new GraphQLNonNull(GraphQLString),
       description: 'The username used to login.',
     },
+    avatarUrl: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'A URL pointing to the owners public avatar.',
+    },
+    resourcePath: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The path for the owner.',
+    },
+    url: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The HTTP URL for the owner.',
+    },
   }),
   resolveType(repositoryOwner) {
     if (repositoryOwner.type === 'RepositoryOwner') {
@@ -128,7 +140,7 @@ const repositoryOwnerType = new GraphQLObjectType({
       description: 'The id of the repository owner.',
     },
   }),
-  interfaces: [ nodeInterface ]
+  interfaces: [ nodeInterface, repositoryOwnerInterface ]
 });
 
 // End Type Implementations
