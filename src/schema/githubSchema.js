@@ -15,6 +15,8 @@ import {
 import { getTopic } from './githubdata/topic.js';
 import { getUniformResourceLocatable } from "./githubdata/uniformResourceLocatable";
 
+// Github Scalar Types
+
 export const uriType = new GraphQLScalarType({
   name: 'URI',
   description:
@@ -25,6 +27,8 @@ export const uriType = new GraphQLScalarType({
     return ast.kind === Kind.STRING ? ast.value : null;
   }
 });
+
+// Start Interfaces in order of when they were implemented
 
 const nodeInterface = new GraphQLInterfaceType({
   name: 'Node',
@@ -41,6 +45,26 @@ const nodeInterface = new GraphQLInterfaceType({
     }
   }
 });
+
+const repositoryOwnerInterface = new GraphQLInterfaceType({
+  name: 'RepositoryOwner',
+  description: 'Represents an owner of a Repository.',
+  fields: () => ({
+    login: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The username used to login.',
+    },
+  }),
+  resolveType(repositoryOwner) {
+    if (repositoryOwner.type === 'RepositoryOwner') {
+      return RepositoryOwnerType;
+    }
+  }
+});
+
+// End Interfaces
+
+// Start Type Implementations
 
 const uniformResourceLocatableType = new GraphQLObjectType({
   name: 'UniformResourceLocatable',
@@ -77,6 +101,20 @@ const topicType = new GraphQLObjectType({
   }),
   interfaces: [ nodeInterface ]
 });
+
+const repositoryOwnerType = new GraphQLObjectType({
+  name: 'RepositoryOwner',
+  description: 'Represents an owner of a Repository.',
+  fields: () => ({
+    login: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'The username used to login.',
+    },
+  }),
+  interfaces: [ repositoryOwnerInterface ]
+});
+
+// End Type Implementations
 
 const queryType = new GraphQLObjectType({
   name: 'Query',
