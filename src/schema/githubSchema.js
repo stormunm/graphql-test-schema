@@ -14,6 +14,7 @@ import {
 
 import { getTopic } from './githubdata/topic.js';
 import { getUniformResourceLocatable } from "./githubdata/uniformResourceLocatable";
+import { getRepositoryOwner } from "./githubdata/repositoryOwner";
 
 // Github Scalar Types
 
@@ -47,7 +48,7 @@ const nodeInterface = new GraphQLInterfaceType({
 });
 
 const repositoryOwnerInterface = new GraphQLInterfaceType({
-  name: 'RepositoryOwner',
+  name: 'RepositoryOwnerInterface',
   description: 'Represents an owner of a Repository.',
   fields: () => ({
     login: {
@@ -57,7 +58,7 @@ const repositoryOwnerInterface = new GraphQLInterfaceType({
   }),
   resolveType(repositoryOwner) {
     if (repositoryOwner.type === 'RepositoryOwner') {
-      return RepositoryOwnerType;
+      return repositoryOwnerType;
     }
   }
 });
@@ -140,6 +141,17 @@ const queryType = new GraphQLObjectType({
       },
       resolve: (root, { url }) => getUniformResourceLocatable(url),
     },
+
+    repositoryOwner: {
+      type: repositoryOwnerType,
+      args: {
+        login: {
+          description: 'The username used to login.',
+          type: new GraphQLNonNull(GraphQLString)
+        },
+      },
+      resolve: (root, { login }) => getRepositoryOwner(login),
+    },
   })
 });
 
@@ -150,5 +162,5 @@ const queryType = new GraphQLObjectType({
 
 export const GithubSchema = new GraphQLSchema({
   query: queryType,
-  types: [ topicType, uniformResourceLocatableType ]
+  types: [ topicType, uniformResourceLocatableType, repositoryOwnerType ]
 });
