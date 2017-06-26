@@ -42,13 +42,6 @@ const nodeInterface = new GraphQLInterfaceType({
   }
 });
 
-/*
-const uriType = new GraphQLObjectType({
-  name: 'URI',
-  description: 'An RFC 3986, RFC 3987, and RFC 6570 (level 4) compliant URI string.',
-});
-*/
-
 const uniformResourceLocatableType = new GraphQLObjectType({
   name: 'UniformResourceLocatable',
   description: 'Represents a type that can be retrieved by a URL.',
