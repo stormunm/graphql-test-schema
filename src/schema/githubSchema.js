@@ -35,8 +35,8 @@ const nodeInterface = new GraphQLInterfaceType({
       description: 'The id of the node.',
     },
   }),
-  resolveType(character) {
-    if (character.type === 'Topic') {
+  resolveType(node) {
+    if (node.type === 'Topic') {
       return topicType;
     }
   }
